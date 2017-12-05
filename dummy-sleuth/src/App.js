@@ -13,7 +13,7 @@ class App extends Component {
   async componentDidMount() {
     const response = await fetch('http://httpbin.org/ip')
     const json = await response.json()
-
+    console.log(json.origin)
     this.setState({data: json.origin})
     // setInterval(() => {
     //   this.setState({
@@ -26,11 +26,12 @@ class App extends Component {
     console.log('line 26');
     return (
       <div className='p-3 mb-2 bg-dark'>
-        <h4>Current IP: {this.state.data}</h4>
+        <h4>Current IP:</h4>
         <form>
-          <input placeholder='expected speed'/>
+          <input placeholder='enter your expected speed'/>
           <button>submit</button>
         </form>
+        <h5>DATA: {this.state.data}</h5>
         <h5></h5>
       </div>
     );
