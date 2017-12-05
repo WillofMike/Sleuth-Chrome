@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import Info from './info/Info.js'
 
 class App extends Component {
   constructor(props) {
@@ -20,7 +21,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        Count: {this.state.count}
+        <Info count={this.state.count}/>
       </div>
     );
   }

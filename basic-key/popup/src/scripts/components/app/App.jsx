@@ -5,22 +5,34 @@ class App extends Component {
     super(props);
 
     this.state = {
-      count: 0
+      count: 0,
+      data: []
     };
   }
 
-  componentDidMount() {
-    setInterval(() => {
-      this.setState({
-        count: this.state.count + 1
-      });
-    }, 1000);
+  async componentDidMount() {
+    const response = await fetch('https://kylegibsoninbox.herokuapp.com/api/messages')
+    const json = await response.json()
+
+    this.setState({data: json._embedded.messages.map(x => x.subject)})
+    // setInterval(() => {
+    //   this.setState({
+    //     count: this.state.count + 1
+    //   });
+    // }, 1000);
   }
 
   render() {
+    console.log('line 26');
     return (
-      <div>
-        Hello World {this.state.count}
+      <div className='p-3 mb-2 bg-dark'>
+        <h4>Current IP:</h4>
+        <form>
+          <input placeholder='enter your expected speed'/>
+          <button>submit</button>
+        </form>
+        {/* <h5>{this.state.data}</h5> */}
+        <h5></h5>
       </div>
     );
   }
