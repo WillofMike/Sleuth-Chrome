@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import Info from './info/Info.js'
+import DisplayInfo from './info/DisplayInfo.js'
 
 class App extends Component {
   constructor(props) {
@@ -6,7 +8,9 @@ class App extends Component {
 
     this.state = {
       count: 0,
-      data: []
+      data: [],
+      expectedSpeed: null,
+      toggleInputField: false
     };
   }
 
@@ -15,11 +19,21 @@ class App extends Component {
     const json = await response.json()
 
     this.setState({data: json.origin})
-    // setInterval(() => {
-    //   this.setState({
-    //     count: this.state.count + 1
-    //   });
-    // }, 1000);
+  }
+
+  submitUsersSpeed(e){
+    e.preventDefault()
+    let userData = {
+      userInput: e.target.userSpeed.value
+    }
+  }
+
+  submissionToggle(){
+    if(this.state.toggleInputField === false){
+      this.setState({toggleInputField:true})
+    }else{
+      this.setState({toggleInputField:false})
+    }
   }
 
   render() {
@@ -27,10 +41,7 @@ class App extends Component {
     return (
       <div className='p-3 mb-2 bg-dark'>
         <h4>Current IP: {this.state.data}</h4>
-        <form>
-          <input placeholder='expected speed'/>
-          <button>submit</button>
-        </form>
+          {this.state.toggleInputField ? <DisplayInfo toggleSubmission={this.submissionToggle.bind(this)}/> : <Info toggleSubmission={this.submissionToggle.bind(this)}/>}
         <h5></h5>
       </div>
     );
