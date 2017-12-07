@@ -1,5 +1,5 @@
 function speedTest(index) {
-
+  console.log('line 2, speedTest');
   var imageAddr = "https://static.pexels.com/photos/371633/pexels-photo-371633.jpeg"
   var downloadSize = 2015104;
 
