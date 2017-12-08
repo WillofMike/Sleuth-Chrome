@@ -1,7 +1,8 @@
 // import React, {Component} from 'react';
 // import {connect} from 'react-redux';
-// import Info from './Info.js'
+// // import DisplayInfo from './DisplayInfo.js'
 // import speedTest from './Info.js'
+// import Loading from './Loading.js'
 //
 // class App extends Component {
 //   constructor(props) {
@@ -22,7 +23,8 @@
 //       allSpeeds: [],
 //       currentSpeed: 0,
 //       packetIndex: 0,
-//       message: ''
+//       message: '',
+//       fetchingData: false
 //     };
 //   }
 //
@@ -37,8 +39,7 @@
 //   }
 //
 //   async addItem(data) {
-//     this.setState({message: 'Adding this item, bitch'})
-//     const response = await fetch("https://galvanize-cors-proxy.herokuapp.com/https://infinite-beach-55234.herokuapp.com/tests/", {
+//     const response = await fetch(`https://galvanize-cors-proxy.herokuapp.com/https://infinite-beach-55234.herokuapp.com/tests/`, {
 //       method: 'POST',
 //       body: JSON.stringify(data),
 //       headers: {
@@ -49,10 +50,9 @@
 //     this.componentDidMount();
 //   }
 //   async runTheTest(){
-//     console.log('line 52, runTheTest');
 //     speedTest(this.state.packetIndex).then(speed => {
 //       if (speed === 0) {
-//         this.setState({calculating: false, message: '56: Speed is 0'})
+//         this.setState({calculating: false})
 //       } else {
 //         let newSpeeds = [...this.state.allSpeeds];
 //         newSpeeds.push(Number(speed))
@@ -63,7 +63,6 @@
 //     })
 //   }
 //   finishTheTest(){
-//     this.setState({message: 'Line 65 ran'});
 //     let newTest = this.state.testResults;
 //     let data = [...this.state.allSpeeds];
 //
@@ -75,7 +74,7 @@
 //     newTest.speed = median.toFixed(2)
 //     let newArr = [];
 //     let postData = {
-//       ip: newTest.IP,
+//       ip: this.state.ip,
 //       dl_speed: newTest.speed,
 //       name: newTest.isp,
 //       lat: newTest.lat,
@@ -85,7 +84,6 @@
 //     this.setState({testResults: newTest, calculating: false, allSpeeds: newArr, packetIndex: 0})
 //   }
 //   runTest() {
-//     console.log('line 88, runTest');
 //     if (this.state.allSpeeds.length < 10) {
 //       this.runTheTest()
 //     } else if (this.state.allSpeeds.length >= 10) {
@@ -93,33 +91,34 @@
 //     }
 //   }
 //   toggleCalculate() {
-//     console.log('line 96, toggle');
 //     if(this.state.calculating == true) {
 //       this.setState({calculating: false})
 //     }else{
 //       this.setState({calculating: true})
 //     }
 //   }
-//   // calculate(){
-//   //   // this.preventDefault();
-//   //   this.setState({calculating: true});
-//   //   // this.getISP();
-//   // }
 //   async componentWillMount() {
-//     console.log('line 103, componentWillMount');
 //     if (this.state.calculating) {
 //       this.runTest();
 //     }
 //   }
-//
+//   async gifDisplay(){
+//     this.setState({message: 'line 106'})
+//     const response = await  fetch('https://galvanize-cors.herokuapp.com/https://api.giphy.com/v1/gifs/random?api_key=29d4517030f64969a6e4a45aa7fb1fd2&tag=sloth&rating=R')
+//     const json = await response.json()
+//     console.log(json);
+//     this.setState({gif: json.data.image_url})
+//   }
 //   render() {
 //     return (<div className='p-3 mb-2 bg-dark'>
-//       <h5>Current IP address: {this.state.ip}</h5>
-//       <h5>{this.state.data.dl_speed}</h5>
-//       <h6>testResults speed: {this.state.testResults.speed}</h6>
+//       <h6>IP address: {this.state.ip}</h6>
+//       {this.state.calculating ? this.runTest() : null}
+//       {/* <img src={this.gifDisplay.bind(this)}/> */}
+//       <Loading gif={this.state.gif}/>
+//       <h5>Download Speed: {this.state.testResults.speed}</h5>
+//       {/* {this.state.fetchingData ?  : null} */}
 //       <button onClick={this.toggleCalculate.bind(this)} type="submit" className="btn btn-primary">Run Sleuth</button>
-//       <p>{this.state.message}</p>
-//       <p>all speeds: {this.state.allSpeeds}</p>
+//       <h6>{this.state.message}</h6>
 //     </div>);
 //   }
 // }
