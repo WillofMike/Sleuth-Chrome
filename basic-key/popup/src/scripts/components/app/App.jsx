@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import DisplayInfo from './DisplayInfo.js'
 import speedTest from './DisplayInfo.js'
+import Loading from './Loading.js'
 
 class App extends Component {
   constructor(props) {
@@ -23,6 +24,8 @@ class App extends Component {
       currentSpeed: 0,
       packetIndex: 0,
       message: '',
+      fetchingData: false,
+      gif: 'http://static.skaip.org/img/emoticons/180x180/f6fcff/sloth.gif'
     };
   }
 
@@ -37,7 +40,6 @@ class App extends Component {
   }
 
   async addItem(data) {
-    this.setState({message: this.state.ip})
     const response = await fetch(`https://galvanize-cors-proxy.herokuapp.com/https://infinite-beach-55234.herokuapp.com/tests/`, {
       method: 'POST',
       body: JSON.stringify(data),
@@ -50,7 +52,6 @@ class App extends Component {
     this.componentDidMount();
   }
   async runTheTest(){
-
     speedTest(this.state.packetIndex).then(speed => {
       if (speed === 0) {
         this.setState({calculating: false, message: '56: Speed is 0'})
@@ -64,9 +65,7 @@ class App extends Component {
     })
   }
   finishTheTest(){
-    this.setState({message: 'Line 65 ran'});
     let newTest = this.state.testResults;
-    this.setState({message: newTest.IP})
     let data = [...this.state.allSpeeds];
 
     data.sort((a, b) => a - b);
@@ -84,10 +83,9 @@ class App extends Component {
       long: newTest.lon
     }
     this.addItem(postData);
-    this.setState({testResults: newTest, calculating: false, allSpeeds: newArr, packetIndex: 0})
+    this.setState({testResults: newTest, calculating: false, fetchingData: false, allSpeeds: newArr, packetIndex: 0})
   }
   runTest() {
-    console.log('line 88, runTest');
     if (this.state.allSpeeds.length < 10) {
       this.runTheTest()
     } else if (this.state.allSpeeds.length >= 10) {
@@ -95,31 +93,26 @@ class App extends Component {
     }
   }
   toggleCalculate() {
+    this.setState({fetchingData: true})
     if(this.state.calculating == true) {
       this.setState({calculating: false})
     }else{
       this.setState({calculating: true})
     }
   }
-  // calculate(){
-  //   // this.preventDefault();
-  //   this.setState({calculating: true});
-  //   // this.getISP();
-  // }
   async componentWillMount() {
-    this.setState({message: 'line 109'})
-    console.log('line 103, componentWillMount');
     if (this.state.calculating) {
       this.runTest();
     }
   }
-
   render() {
-    return (<div className='p-3 mb-2 bg-dark'>
-      <h6>IP address: {this.state.ip}</h6>
+    return (<div className='p-3 text-center text-success bg-inverse'>
+      <h6>IP Address: <h6 className="text-white">{this.state.ip}</h6></h6>
       {this.state.calculating ? this.runTest() : null}
-      <h5>Download Speed: {this.state.testResults.speed}</h5>
-      <button onClick={this.toggleCalculate.bind(this)} type="submit" className="btn btn-primary">Run Sleuth</button>
+      <h6>Download Speed: <br/> <h4 className="text-white">{this.state.testResults.speed} mbs</h4></h6>
+      {this.state.fetchingData ? <Loading gif={this.state.gif} /> : null}
+      <h5></h5>
+      <button onClick={this.toggleCalculate.bind(this)} type="submit" className="btn btn-success">Run Sleuth</button>
     </div>);
   }
 }
