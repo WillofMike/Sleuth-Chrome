@@ -1,21 +1,45 @@
-# react-chrome-redux-examples
-Examples using react-chrome-redux from SoCal ReactJS meetup.
+# Sleuth
+Sleuth is an app designed to create an even playing field for all ISPs. When using the app, you can check your download speed and compare top download speeds amongst other ISPs.
+#### Deployed site
+[Click here to visit the deployed site](https://speed-sleuth.firebaseapp.com)
+#### Chrome Extension
+[Click here to download the Chrome Extension](https://chrome.google.com/webstore/detail/sleuth/ljcgfcpjeioeodhbpjjfamlikpgmnhno/related?hl=en)
 
-## To Run An Example
-Clone or download this repo.
+## Screenshots
+![Photo of the home page](./screenshots/home.png)
+![Photo of the google chrome extension](./screenshots/extension.png)
 
-Navigate to an example's root folder, then run
+## To run locally:
+1. Fork and clone the repo
+2. In command line, `git clone {insert-your-repo-SSH-key}`
+3. Run `npm install`
+4. Run `brew install yarn`
+5. In order to view on your local host, run `yarn start` (or `npm start` if yarn doesn't work)
 
-```
-npm install 
-```
+## How to contribute
+1. Fork and clone this repo
+2. Check the list of needs for what changes can be added
+3. Create a pull request and an admin will give you feedback
+4. Celebrate
 
-To build the project, run 
+## List of needs
+##### TBD
 
-```
-gulp
-```
+##### If you have a great feature that you'd like to see on Sleuth, send one of our admins a message!
 
-And webpack bundle will be created. 
+Feel free to check with admins to see what projects are currently underway.
 
-In the root project directory, you will find a `build` folder. To install the extension in chrome, go to chrome://extensions on your browser, make sure developer mode is enabled, and click on "Load unpacked extension...". Select the `build` directory and you're on you're way!
+### Admins
+1. [Luke Romberg](https://github.com/lukeromberg)
+2. [Kelsey Laver](https://github.com/kalaver8)
+3. [Dave Francese](https://github.com/davefrancese)
+4. [Jordan Reed](https://github.com/jordanreed23)
+5. [Kyle Gibson](https://github.com/kylegibson15)
+6. [Jake Robbins](https://github.com/iamjakerobbins)
+7. [Tito Yslas](https://github.com/tyslas)
+8. [Mike Williams](https://github.com/willofmike)
+9. [Geralle Estes](https://github.com/geralle)
+
+### Contributors
+1. [Paul Rodriguez](https://github.com/prdesignwork)
+2. [Lizz Robbins](https://github.com/lizzrobbins)
